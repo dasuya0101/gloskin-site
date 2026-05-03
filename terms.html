@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Service — GloSkin</title>
+  <meta name="description" content="GloSkin Terms of Service — the rules and guidelines for using the GloSkin app." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --purple-600: #7C3AED; --purple-500: #8B5CF6; --purple-400: #A78BFA;
+      --purple-100: #EDE9FE; --purple-50: #F5F3FF; --lavender: #DDD6FE;
+      --white: #FFFFFF; --gray-50: #FAFAFA; --gray-100: #F3F4F6;
+      --gray-500: #6B7280; --gray-700: #374151; --gray-900: #111827;
+      --amber-50: #FFFBEB; --amber-500: #F59E0B; --amber-700: #B45309;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: var(--white); color: var(--gray-900); line-height: 1.7; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(167,139,250,0.15);
+      padding: 0 24px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-size: 1.4rem; font-weight: 900;
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-400));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { color: var(--gray-700); text-decoration: none; font-size: 0.95rem; font-weight: 600; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--purple-600); }
+
+    .page-header {
+      background: linear-gradient(135deg, var(--purple-50) 0%, var(--white) 100%);
+      border-bottom: 1px solid var(--lavender);
+      padding: 60px 24px 48px; text-align: center;
+    }
+    .page-header .label {
+      font-size: 0.8rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--purple-600); margin-bottom: 12px;
+    }
+    .page-header h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900; letter-spacing: -0.02em; margin-bottom: 14px; }
+    .page-header p { color: var(--gray-500); font-size: 0.98rem; font-weight: 500; }
+
+    /* Medical disclaimer banner */
+    .disclaimer-banner {
+      background: var(--amber-50); border: 2px solid var(--amber-500);
+      border-radius: 16px; padding: 24px 28px; margin-bottom: 48px;
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .disclaimer-banner .icon { font-size: 1.6rem; flex-shrink: 0; margin-top: 2px; }
+    .disclaimer-banner h3 { font-size: 1rem; font-weight: 900; color: var(--amber-700); margin-bottom: 6px; }
+    .disclaimer-banner p { font-size: 0.93rem; color: var(--amber-700); font-weight: 600; line-height: 1.6; }
+
+    .content-wrap { max-width: 780px; margin: 0 auto; padding: 60px 24px 80px; }
+
+    .toc {
+      background: var(--purple-50); border: 1px solid var(--lavender);
+      border-radius: 16px; padding: 28px 32px; margin-bottom: 52px;
+    }
+    .toc h2 { font-size: 1rem; font-weight: 800; margin-bottom: 14px; color: var(--purple-600); }
+    .toc ol { padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+    .toc a { color: var(--purple-600); text-decoration: none; font-size: 0.92rem; font-weight: 600; }
+    .toc a:hover { text-decoration: underline; }
+
+    .policy-section { margin-bottom: 52px; }
+    .policy-section h2 {
+      font-size: 1.3rem; font-weight: 900; margin-bottom: 14px;
+      padding-bottom: 10px; border-bottom: 2px solid var(--purple-100);
+    }
+    .policy-section h3 { font-size: 1.05rem; font-weight: 800; margin: 22px 0 8px; color: var(--gray-700); }
+    .policy-section p { color: var(--gray-700); font-size: 0.97rem; margin-bottom: 14px; font-weight: 500; }
+    .policy-section ul, .policy-section ol {
+      padding-left: 22px; color: var(--gray-700); font-size: 0.97rem;
+      font-weight: 500; margin-bottom: 14px; display: flex; flex-direction: column; gap: 6px;
+    }
+    .policy-section li { line-height: 1.65; }
+
+    .highlight-box {
+      background: var(--purple-50); border-left: 4px solid var(--purple-500);
+      border-radius: 0 12px 12px 0; padding: 18px 22px; margin: 20px 0;
+      font-size: 0.95rem; font-weight: 600; color: var(--gray-700);
+    }
+
+    footer {
+      background: var(--gray-900); color: rgba(255,255,255,0.6);
+      padding: 40px 24px; text-align: center;
+    }
+    .footer-links-row { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+    .footer-links-row a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .footer-links-row a:hover { color: var(--white); }
+    footer p { font-size: 0.85rem; font-weight: 500; }
+
+    @media (max-width: 600px) { .nav-links { display: none; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">GloSkin</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="privacy.html">Privacy</a></li>
+    <li><a href="support.html">Support</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <p class="label">Legal</p>
+  <h1>Terms of Service</h1>
+  <p>Last updated: April 14, 2026 &nbsp;·&nbsp; Effective: April 14, 2026</p>
+</div>
+
+<div class="content-wrap">
+
+  <!-- Medical Disclaimer Banner -->
+  <div class="disclaimer-banner">
+    <div class="icon">⚕️</div>
+    <div>
+      <h3>Not Medical Advice</h3>
+      <p>GloSkin provides cosmetic and educational skincare information only. The App is not a medical device and does not provide medical diagnoses, medical advice, or clinical treatment. Always consult a qualified dermatologist or healthcare professional for skin conditions, medical concerns, or before making significant changes to your skincare regimen.</p>
+    </div>
+  </div>
+
+  <div class="toc">
+    <h2>Table of Contents</h2>
+    <ol>
+      <li><a href="#acceptance">Acceptance of Terms</a></li>
+      <li><a href="#description">Description of Service</a></li>
+      <li><a href="#medical-disclaimer">Medical Disclaimer</a></li>
+      <li><a href="#eligibility">Eligibility</a></li>
+      <li><a href="#accounts">User Accounts</a></li>
+      <li><a href="#subscriptions">Subscriptions &amp; Billing</a></li>
+      <li><a href="#free-tier">Free Tier &amp; Usage Limits</a></li>
+      <li><a href="#user-conduct">User Conduct</a></li>
+      <li><a href="#content">User-Generated Content</a></li>
+      <li><a href="#ip">Intellectual Property</a></li>
+      <li><a href="#third-party">Third-Party Links &amp; Products</a></li>
+      <li><a href="#disclaimer">Disclaimers</a></li>
+      <li><a href="#liability">Limitation of Liability</a></li>
+      <li><a href="#indemnification">Indemnification</a></li>
+      <li><a href="#termination">Termination</a></li>
+      <li><a href="#governing-law">Governing Law</a></li>
+      <li><a href="#changes">Changes to Terms</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ol>
+  </div>
+
+  <!-- 1 -->
+  <div class="policy-section" id="acceptance">
+    <h2>1. Acceptance of Terms</h2>
+    <p>These Terms of Service ("Terms") constitute a legally binding agreement between you and GloSkin ("we," "our," or "us") governing your access to and use of the GloSkin mobile application and related services (collectively, the "Service").</p>
+    <p>By downloading, installing, or using GloSkin, you confirm that you have read, understood, and agree to be bound by these Terms and our <a href="privacy.html">Privacy Policy</a>. If you do not agree to these Terms, you must not use the Service.</p>
+  </div>
+
+  <!-- 2 -->
+  <div class="policy-section" id="description">
+    <h2>2. Description of Service</h2>
+    <p>GloSkin is a mobile application that provides:</p>
+    <ul>
+      <li>AI-powered skin analysis using your device camera ("Glowi Score")</li>
+      <li>Personalized skincare routine suggestions based on your skin profile</li>
+      <li>Product recommendations with ingredient transparency</li>
+      <li>A progress tracking timeline using daily check-in selfies</li>
+      <li>A skin diary for logging observations and habits</li>
+      <li>An AI chat assistant ("Skincare Guru") for skincare-related questions</li>
+      <li>Educational articles and skincare content ("Insights")</li>
+    </ul>
+    <p>The Service is intended for cosmetic and educational purposes only. It is not a substitute for professional dermatological care.</p>
+  </div>
+
+  <!-- 3 -->
+  <div class="policy-section" id="medical-disclaimer">
+    <h2>3. Medical Disclaimer</h2>
+    <div class="highlight-box">
+      GloSkin is NOT a medical device. The skin assessments, Glowi Score, routine suggestions, product recommendations, and AI chat responses provided by GloSkin are for cosmetic and informational purposes only and do not constitute medical advice, diagnosis, or treatment.
+    </div>
+    <p>Nothing in the App or Service should be construed as:</p>
+    <ul>
+      <li>A medical diagnosis of any skin condition or disease</li>
+      <li>A substitute for examination, diagnosis, or treatment by a licensed dermatologist or healthcare professional</li>
+      <li>Medical advice for any specific medical condition</li>
+      <li>A recommendation to discontinue or alter any existing medical treatment</li>
+    </ul>
+    <p>If you have or suspect you have a skin condition, disease, allergy, or any medical concern, consult a qualified dermatologist or healthcare provider immediately. Never disregard professional medical advice or delay seeking it because of something you have read or received within GloSkin.</p>
+    <p>Some skincare products may cause allergic reactions or skin irritation. Always perform a patch test before applying new products, especially if you have sensitive skin or known allergies.</p>
+  </div>
+
+  <!-- 4 -->
+  <div class="policy-section" id="eligibility">
+    <h2>4. Eligibility</h2>
+    <p>You must be at least 13 years of age to use GloSkin. Users between 13 and 17 years of age must have parental or guardian consent.</p>
+    <p>By using the Service, you represent and warrant that you meet these eligibility requirements. If you are using GloSkin on behalf of an organization, you represent that you have the authority to bind that organization to these Terms.</p>
+  </div>
+
+  <!-- 5 -->
+  <div class="policy-section" id="accounts">
+    <h2>5. User Accounts</h2>
+    <p>To access most features of GloSkin, you must create an account. You agree to:</p>
+    <ul>
+      <li>Provide accurate, current, and complete information during registration.</li>
+      <li>Maintain the security of your account credentials and not share your password with others.</li>
+      <li>Notify us immediately of any unauthorized use of your account at <a href="mailto:support@gloskin.app">support@gloskin.app</a>.</li>
+      <li>Take responsibility for all activities that occur under your account.</li>
+    </ul>
+    <p>We reserve the right to suspend or terminate accounts that violate these Terms or that are inactive for an extended period.</p>
+  </div>
+
+  <!-- 6 -->
+  <div class="policy-section" id="subscriptions">
+    <h2>6. Subscriptions &amp; Billing</h2>
+
+    <h3>GloSkin Pro</h3>
+    <p>GloSkin offers a premium subscription tier ("GloSkin Pro") that unlocks additional features including unlimited face scans, unlimited AI chat, full progress history, advanced insights, and an ad-free experience.</p>
+
+    <h3>Subscription Plans</h3>
+    <ul>
+      <li><strong>Monthly:</strong> Billed once per month.</li>
+      <li><strong>Annual:</strong> Billed once per year at a discounted rate.</li>
+    </ul>
+    <p>Current pricing is displayed in the App and in the App Store. Prices are subject to change with advance notice.</p>
+
+    <h3>Auto-Renewal</h3>
+    <p>GloSkin Pro subscriptions automatically renew at the end of each billing period unless you cancel at least 24 hours before the renewal date. Your Apple ID account will be charged for renewal within 24 hours prior to the end of the current period.</p>
+
+    <h3>Free Trial</h3>
+    <p>We may offer a free trial of GloSkin Pro from time to time. Free trials automatically convert to paid subscriptions unless you cancel before the trial ends. You will not be charged during the free trial period.</p>
+
+    <h3>Cancellation</h3>
+    <p>You may cancel your subscription at any time through the App Store (Settings → Apple ID → Subscriptions → GloSkin). Cancellation takes effect at the end of the current billing period — you retain Pro access until then. We do not provide refunds for partial billing periods except as required by applicable law.</p>
+
+    <h3>Refunds</h3>
+    <p>All purchases are processed by Apple through the App Store. Refund requests must be submitted to Apple directly. We are unable to process refunds ourselves. Apple's refund policies apply.</p>
+
+    <h3>Price Changes</h3>
+    <p>We reserve the right to change subscription prices. We will provide at least 30 days' notice of any price increase. Continued use of the subscription after a price change constitutes your acceptance of the new pricing.</p>
+  </div>
+
+  <!-- 7 -->
+  <div class="policy-section" id="free-tier">
+    <h2>7. Free Tier &amp; Usage Limits</h2>
+    <p>The free tier of GloSkin provides limited access to core features, including a limited number of face scans and AI chat messages per day. Usage limits are displayed within the App.</p>
+    <p>We reserve the right to adjust free tier limits at any time with reasonable notice provided within the App.</p>
+  </div>
+
+  <!-- 8 -->
+  <div class="policy-section" id="user-conduct">
+    <h2>8. User Conduct</h2>
+    <p>You agree not to use the Service to:</p>
+    <ul>
+      <li>Upload, transmit, or share content that is illegal, harmful, threatening, abusive, harassing, defamatory, or obscene.</li>
+      <li>Attempt to gain unauthorized access to the App, servers, or networks connected to the Service.</li>
+      <li>Use automated means (bots, scrapers, crawlers) to access or collect data from the Service.</li>
+      <li>Reverse engineer, decompile, or disassemble any part of the App.</li>
+      <li>Impersonate any person or entity or misrepresent your affiliation with any person or entity.</li>
+      <li>Use the Service for any commercial purpose without our express written consent.</li>
+      <li>Violate any applicable local, state, national, or international law or regulation.</li>
+    </ul>
+  </div>
+
+  <!-- 9 -->
+  <div class="policy-section" id="content">
+    <h2>9. User-Generated Content</h2>
+    <p>You retain ownership of content you create within the App, including selfie photos, diary entries, and chat messages. By submitting content to the Service, you grant us a limited, non-exclusive, royalty-free license to store, process, and display that content solely for the purpose of providing the Service to you.</p>
+    <p>We do not use your face scan photos or personal diary entries to train AI models without your explicit consent.</p>
+    <p>You represent and warrant that you own or have the rights to any content you submit, and that your content does not violate the rights of any third party.</p>
+  </div>
+
+  <!-- 10 -->
+  <div class="policy-section" id="ip">
+    <h2>10. Intellectual Property</h2>
+    <p>The GloSkin app, including its design, code, text, graphics, logos, and all other content (excluding your user-generated content), is owned by GloSkin and protected by copyright, trademark, and other intellectual property laws.</p>
+    <p>We grant you a limited, non-exclusive, non-transferable, revocable license to use the App for your personal, non-commercial use, subject to these Terms.</p>
+    <p>You may not copy, modify, distribute, sell, or lease any part of the App or its content, nor may you reverse engineer or attempt to extract the source code of the App.</p>
+  </div>
+
+  <!-- 11 -->
+  <div class="policy-section" id="third-party">
+    <h2>11. Third-Party Links &amp; Products</h2>
+    <p>The App may contain affiliate links to third-party products and websites (e.g., Amazon, retailers). When you click these links and make a purchase, we may earn a small commission at no additional cost to you.</p>
+    <p>We do not endorse and are not responsible for the quality, safety, or suitability of any third-party products. Product recommendations are based on your skin profile and general skincare science — they are not medical endorsements. Always review product ingredients and consult a professional if you have concerns.</p>
+    <p>Third-party websites have their own privacy policies and terms of service, which we encourage you to review.</p>
+  </div>
+
+  <!-- 12 -->
+  <div class="policy-section" id="disclaimer">
+    <h2>12. Disclaimers</h2>
+    <p>THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.</p>
+    <p>We do not warrant that:</p>
+    <ul>
+      <li>The Service will be uninterrupted, error-free, or completely secure.</li>
+      <li>Any skin analysis results or Glowi Scores are accurate, complete, or reliable for medical purposes.</li>
+      <li>Product recommendations will be suitable for your individual skin or health needs.</li>
+      <li>AI chat responses are accurate, complete, or constitute professional skincare advice.</li>
+    </ul>
+  </div>
+
+  <!-- 13 -->
+  <div class="policy-section" id="liability">
+    <h2>13. Limitation of Liability</h2>
+    <p>TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, GLOSKIN AND ITS OFFICERS, DIRECTORS, EMPLOYEES, AGENTS, AND LICENSORS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF PROFITS, DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES, ARISING OUT OF OR RELATING TO YOUR USE OF OR INABILITY TO USE THE SERVICE.</p>
+    <p>IN NO EVENT SHALL GLOSKIN'S TOTAL LIABILITY TO YOU FOR ALL CLAIMS ARISING FROM OR RELATING TO THESE TERMS OR THE SERVICE EXCEED THE GREATER OF (A) THE AMOUNT YOU PAID TO US IN THE TWELVE MONTHS PRECEDING THE CLAIM, OR (B) $50 USD.</p>
+    <p>Some jurisdictions do not allow the exclusion of certain warranties or limitation of liability, so some of the above limitations may not apply to you.</p>
+  </div>
+
+  <!-- 14 -->
+  <div class="policy-section" id="indemnification">
+    <h2>14. Indemnification</h2>
+    <p>You agree to indemnify, defend, and hold harmless GloSkin and its officers, directors, employees, agents, and licensors from and against any claims, liabilities, damages, losses, and expenses, including reasonable legal fees, arising out of or in any way connected with:</p>
+    <ul>
+      <li>Your access to or use of the Service.</li>
+      <li>Your violation of these Terms.</li>
+      <li>Your violation of any third-party rights, including intellectual property or privacy rights.</li>
+      <li>Any content you submit to the Service.</li>
+    </ul>
+  </div>
+
+  <!-- 15 -->
+  <div class="policy-section" id="termination">
+    <h2>15. Termination</h2>
+    <p>You may stop using the Service and delete your account at any time via Settings → Account → Delete Account within the App, or by contacting us at <a href="mailto:support@gloskin.app">support@gloskin.app</a>.</p>
+    <p>We reserve the right to suspend or terminate your access to the Service at any time, with or without notice, for any reason, including if we reasonably believe you have violated these Terms.</p>
+    <p>Upon termination, your right to use the Service ceases immediately. Provisions of these Terms that by their nature should survive termination will survive, including the medical disclaimer, disclaimers, limitation of liability, and indemnification sections.</p>
+  </div>
+
+  <!-- 16 -->
+  <div class="policy-section" id="governing-law">
+    <h2>16. Governing Law &amp; Disputes</h2>
+    <p>These Terms are governed by and construed in accordance with the laws of the State of California, United States, without regard to its conflict of law provisions.</p>
+    <p>Any dispute arising from these Terms or your use of the Service shall first be attempted to be resolved informally by contacting us at <a href="mailto:support@gloskin.app">support@gloskin.app</a>. If informal resolution fails within 30 days, disputes shall be resolved through binding arbitration in San Francisco County, California, except that either party may seek injunctive or other equitable relief in any court of competent jurisdiction.</p>
+    <p>You waive any right to participate in a class-action lawsuit or class-wide arbitration.</p>
+  </div>
+
+  <!-- 17 -->
+  <div class="policy-section" id="changes">
+    <h2>17. Changes to Terms</h2>
+    <p>We may modify these Terms at any time. We will notify you of material changes by posting the updated Terms in the App with a new "Last updated" date and, for significant changes, by sending an in-app notification.</p>
+    <p>Your continued use of the Service after changes are posted constitutes your acceptance of the revised Terms. If you do not agree to the revised Terms, you must stop using the Service.</p>
+  </div>
+
+  <!-- 18 -->
+  <div class="policy-section" id="contact">
+    <h2>18. Contact Us</h2>
+    <p>If you have any questions about these Terms, please contact us:</p>
+    <ul>
+      <li><strong>Email:</strong> <a href="mailto:support@gloskin.app">support@gloskin.app</a></li>
+      <li><strong>Support page:</strong> <a href="support.html">Support &amp; FAQ</a></li>
+    </ul>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-links-row">
+    <a href="index.html">Home</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+    <a href="support.html">Support</a>
+  </div>
+  <p>&copy; 2026 GloSkin. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

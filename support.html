@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support &amp; FAQ — GloSkin</title>
+  <meta name="description" content="Get help with GloSkin — frequently asked questions, how to manage your subscription, delete your account, and contact support." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --purple-600: #7C3AED; --purple-500: #8B5CF6; --purple-400: #A78BFA;
+      --purple-100: #EDE9FE; --purple-50: #F5F3FF; --lavender: #DDD6FE;
+      --white: #FFFFFF; --gray-50: #FAFAFA; --gray-100: #F3F4F6;
+      --gray-500: #6B7280; --gray-700: #374151; --gray-900: #111827;
+      --green-50: #F0FDF4; --green-600: #16A34A;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: var(--white); color: var(--gray-900); line-height: 1.7; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(167,139,250,0.15);
+      padding: 0 24px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-size: 1.4rem; font-weight: 900;
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-400));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { color: var(--gray-700); text-decoration: none; font-size: 0.95rem; font-weight: 600; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--purple-600); }
+
+    .page-header {
+      background: linear-gradient(135deg, var(--purple-50) 0%, var(--white) 100%);
+      border-bottom: 1px solid var(--lavender);
+      padding: 60px 24px 48px; text-align: center;
+    }
+    .page-header .label {
+      font-size: 0.8rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--purple-600); margin-bottom: 12px;
+    }
+    .page-header h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900; letter-spacing: -0.02em; margin-bottom: 14px; }
+    .page-header p { color: var(--gray-500); font-size: 1rem; font-weight: 500; max-width: 480px; margin: 0 auto; }
+
+    .content-wrap { max-width: 840px; margin: 0 auto; padding: 60px 24px 80px; }
+
+    /* Contact Card */
+    .contact-card {
+      background: linear-gradient(135deg, var(--purple-600) 0%, #6D28D9 100%);
+      border-radius: 24px; padding: 44px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 28px; flex-wrap: wrap;
+      margin-bottom: 64px;
+      box-shadow: 0 12px 40px rgba(124,58,237,0.3);
+    }
+    .contact-card-text h2 { color: var(--white); font-size: 1.5rem; font-weight: 900; margin-bottom: 8px; }
+    .contact-card-text p { color: rgba(255,255,255,0.82); font-size: 0.98rem; font-weight: 500; max-width: 380px; }
+    .contact-email-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--white); color: var(--purple-600);
+      padding: 14px 28px; border-radius: 14px;
+      text-decoration: none; font-size: 1rem; font-weight: 800;
+      white-space: nowrap;
+      transition: transform 0.18s, box-shadow 0.18s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+    .contact-email-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.16); }
+
+    /* Response time badge */
+    .response-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green-50); border: 1px solid #BBF7D0;
+      border-radius: 100px; padding: 8px 18px;
+      font-size: 0.85rem; font-weight: 700; color: var(--green-600);
+      margin-bottom: 48px;
+    }
+    .response-badge .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--green-600);
+      box-shadow: 0 0 0 3px rgba(22,163,74,0.2);
+    }
+
+    /* Section headers */
+    .section-title {
+      font-size: 1.5rem; font-weight: 900; margin-bottom: 28px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .section-title span { font-size: 1.4rem; }
+
+    /* FAQ accordion */
+    .faq-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 64px; }
+
+    details {
+      background: var(--white);
+      border: 1px solid rgba(167,139,250,0.25);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(124,58,237,0.05);
+      transition: box-shadow 0.2s;
+    }
+    details:hover { box-shadow: 0 4px 16px rgba(124,58,237,0.10); }
+    details[open] {
+      border-color: var(--purple-400);
+      box-shadow: 0 4px 20px rgba(124,58,237,0.12);
+    }
+
+    summary {
+      padding: 20px 24px;
+      font-size: 1rem; font-weight: 800; color: var(--gray-900);
+      cursor: pointer; list-style: none;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px;
+      user-select: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after {
+      content: '+';
+      font-size: 1.4rem; font-weight: 700;
+      color: var(--purple-500); flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+    details[open] summary::after {
+      content: '−';
+    }
+    summary:hover { color: var(--purple-600); }
+
+    .faq-body {
+      padding: 0 24px 24px;
+      color: var(--gray-700); font-size: 0.97rem; font-weight: 500; line-height: 1.7;
+    }
+    .faq-body p { margin-bottom: 10px; }
+    .faq-body p:last-child { margin-bottom: 0; }
+    .faq-body ol, .faq-body ul {
+      padding-left: 20px; display: flex; flex-direction: column;
+      gap: 6px; margin-top: 10px;
+    }
+    .faq-body a { color: var(--purple-600); text-decoration: none; font-weight: 700; }
+    .faq-body a:hover { text-decoration: underline; }
+
+    /* Topic categories */
+    .faq-category { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; color: var(--purple-400); margin-bottom: 12px; margin-top: 32px; }
+    .faq-category:first-child { margin-top: 0; }
+
+    /* Tips section */
+    .tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 64px; }
+    .tip-card {
+      background: var(--purple-50); border: 1px solid var(--lavender);
+      border-radius: 18px; padding: 28px 24px;
+    }
+    .tip-icon { font-size: 1.6rem; margin-bottom: 12px; display: block; }
+    .tip-card h3 { font-size: 1rem; font-weight: 800; margin-bottom: 8px; }
+    .tip-card p { color: var(--gray-700); font-size: 0.9rem; font-weight: 500; line-height: 1.6; }
+
+    /* Still need help */
+    .still-help {
+      background: var(--gray-50); border: 1px solid var(--gray-100);
+      border-radius: 20px; padding: 36px 32px; text-align: center;
+    }
+    .still-help h3 { font-size: 1.2rem; font-weight: 900; margin-bottom: 10px; }
+    .still-help p { color: var(--gray-500); font-size: 0.97rem; font-weight: 500; margin-bottom: 20px; }
+    .btn-purple {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-500));
+      color: var(--white); padding: 14px 30px; border-radius: 14px;
+      text-decoration: none; font-size: 0.97rem; font-weight: 800;
+      box-shadow: 0 4px 16px rgba(124,58,237,0.28);
+      transition: transform 0.18s, box-shadow 0.18s;
+    }
+    .btn-purple:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,58,237,0.36); }
+
+    footer {
+      background: var(--gray-900); color: rgba(255,255,255,0.6);
+      padding: 40px 24px; text-align: center;
+    }
+    .footer-links-row { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+    .footer-links-row a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .footer-links-row a:hover { color: var(--white); }
+    footer p { font-size: 0.85rem; font-weight: 500; }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .contact-card { flex-direction: column; padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">GloSkin</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="privacy.html">Privacy</a></li>
+    <li><a href="terms.html">Terms</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <p class="label">Help Center</p>
+  <h1>Support &amp; FAQ</h1>
+  <p>Find answers to common questions or get in touch — we're here to help.</p>
+</div>
+
+<div class="content-wrap">
+
+  <!-- Contact Card -->
+  <div class="contact-card">
+    <div class="contact-card-text">
+      <h2>Get in Touch</h2>
+      <p>Can't find the answer below? Email our support team and we'll get back to you quickly.</p>
+    </div>
+    <a href="mailto:support@gloskin.app" class="contact-email-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="2" y="4" width="20" height="16" rx="2"/>
+        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+      </svg>
+      support@gloskin.app
+    </a>
+  </div>
+
+  <div style="text-align:center; margin-top:-44px; margin-bottom:56px;">
+    <span class="response-badge"><span class="dot"></span>We typically respond within 1–2 business days</span>
+  </div>
+
+  <!-- Quick Tips -->
+  <h2 class="section-title"><span>💡</span> Quick Tips</h2>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <span class="tip-icon">📱</span>
+      <h3>Best Scan Results</h3>
+      <p>Face well-lit, natural light, no glasses. Hold phone at eye level and keep still during the scan countdown.</p>
+    </div>
+    <div class="tip-card">
+      <span class="tip-icon">🔔</span>
+      <h3>Routine Reminders</h3>
+      <p>Enable notifications in Settings → Notifications to get AM/PM routine reminders at custom times.</p>
+    </div>
+    <div class="tip-card">
+      <span class="tip-icon">📊</span>
+      <h3>Track Progress</h3>
+      <p>Take a check-in selfie every day in the same lighting to see the most accurate progress timeline.</p>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <h2 class="section-title"><span>❓</span> Frequently Asked Questions</h2>
+
+  <div class="faq-list">
+
+    <!-- Subscriptions -->
+    <p class="faq-category">Subscriptions &amp; Billing</p>
+
+    <details>
+      <summary>How do I cancel my GloSkin Pro subscription?</summary>
+      <div class="faq-body">
+        <p>GloSkin Pro is managed entirely through the Apple App Store. To cancel:</p>
+        <ol>
+          <li>Open the <strong>Settings</strong> app on your iPhone.</li>
+          <li>Tap your name at the top, then tap <strong>Subscriptions</strong>.</li>
+          <li>Find <strong>GloSkin Pro</strong> and tap it.</li>
+          <li>Tap <strong>Cancel Subscription</strong> and confirm.</li>
+        </ol>
+        <p>Your Pro access remains active until the end of the current billing period. You won't be charged again after cancellation. We're unable to cancel subscriptions on your behalf — it must be done through the App Store.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Can I get a refund for my subscription?</summary>
+      <div class="faq-body">
+        <p>All purchases are processed by Apple through the App Store. Refunds must be requested directly from Apple:</p>
+        <ol>
+          <li>Go to <strong>reportaproblem.apple.com</strong> and sign in with your Apple ID.</li>
+          <li>Find the GloSkin Pro purchase and select <strong>Request a Refund</strong>.</li>
+        </ol>
+        <p>Apple's refund policies apply. We are not able to process refunds directly, but we're happy to help troubleshoot any issues you've experienced — just email us at <a href="mailto:support@gloskin.app">support@gloskin.app</a>.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What's included in GloSkin Pro vs. the free version?</summary>
+      <div class="faq-body">
+        <p>The <strong>free tier</strong> includes:</p>
+        <ul>
+          <li>Limited face scans per day</li>
+          <li>Limited AI Skincare Guru chat messages per day</li>
+          <li>Basic routine checklist</li>
+          <li>Core product recommendations</li>
+        </ul>
+        <p><strong>GloSkin Pro</strong> adds:</p>
+        <ul>
+          <li>Unlimited face scans</li>
+          <li>Unlimited AI chat messages</li>
+          <li>Full progress photo history and skin timeline</li>
+          <li>Advanced skin insights and trend analysis</li>
+          <li>Ad-free experience</li>
+          <li>Priority support</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- Account & Data -->
+    <p class="faq-category">Account &amp; Data</p>
+
+    <details>
+      <summary>How do I delete my account and all my data?</summary>
+      <div class="faq-body">
+        <p>You can delete your account directly in the app:</p>
+        <ol>
+          <li>Open GloSkin and go to the <strong>Today</strong> tab.</li>
+          <li>Tap the settings icon (top right) → <strong>Account</strong> → <strong>Delete Account</strong>.</li>
+          <li>Confirm deletion. This is permanent and cannot be undone.</li>
+        </ol>
+        <p>Alternatively, email us at <a href="mailto:support@gloskin.app">support@gloskin.app</a> with the subject <strong>"Delete My Account"</strong> and we'll process the deletion within 5 business days.</p>
+        <p>All data including your skin profile, photos, diary entries, and chat history will be permanently deleted within 30 days.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Is my skin data and photos kept private and secure?</summary>
+      <div class="faq-body">
+        <p>Yes. Your privacy is our top priority.</p>
+        <ul>
+          <li>Your face scan photos and check-in selfies are stored in your private, access-controlled account — they are not publicly accessible.</li>
+          <li>All data is encrypted in transit (TLS) and at rest (AES-256) on Supabase's secure cloud infrastructure.</li>
+          <li>We never sell your personal data or health information to third parties.</li>
+          <li>We do not use your photos or skin data to build advertising profiles.</li>
+        </ul>
+        <p>Read our full <a href="privacy.html">Privacy Policy</a> for complete details.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Can I export my data?</summary>
+      <div class="faq-body">
+        <p>Yes. You have the right to a copy of your personal data. To request a data export, email us at <a href="mailto:support@gloskin.app">support@gloskin.app</a> with the subject <strong>"Data Export Request"</strong>.</p>
+        <p>We will provide your data in a portable format (JSON or CSV) within 30 days of your request.</p>
+      </div>
+    </details>
+
+    <!-- App Features -->
+    <p class="faq-category">App Features</p>
+
+    <details>
+      <summary>Why isn't the face scan working?</summary>
+      <div class="faq-body">
+        <p>If the face scan isn't working, try the following:</p>
+        <ul>
+          <li><strong>Check camera permissions:</strong> Go to iPhone Settings → Privacy &amp; Security → Camera → make sure GloSkin is enabled.</li>
+          <li><strong>Lighting:</strong> Ensure you're in a well-lit area. Natural or bright indoor light works best. Avoid harsh backlighting.</li>
+          <li><strong>Position:</strong> Hold the phone at eye level, about 12–18 inches from your face. Remove glasses and ensure your full face is visible in the frame.</li>
+          <li><strong>Restart the app:</strong> Swipe up to close GloSkin and reopen it.</li>
+          <li><strong>Update the app:</strong> Ensure you're on the latest version via the App Store.</li>
+        </ul>
+        <p>If the issue persists, contact us at <a href="mailto:support@gloskin.app">support@gloskin.app</a> with your device model and iOS version.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Is GloSkin's advice a substitute for seeing a dermatologist?</summary>
+      <div class="faq-body">
+        <p><strong>No.</strong> GloSkin provides cosmetic and educational skincare guidance only. The App is not a medical device and does not provide medical diagnoses or clinical treatment.</p>
+        <p>If you have a persistent skin condition, unusual lesions, severe acne, or any medical concern, please consult a licensed dermatologist or healthcare professional. GloSkin is designed to complement — not replace — professional skincare advice.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I turn off push notifications?</summary>
+      <div class="faq-body">
+        <p>You can manage notifications in two places:</p>
+        <ul>
+          <li><strong>Within the app:</strong> Settings → Notifications — toggle individual notification types on or off.</li>
+          <li><strong>Device settings:</strong> iPhone Settings → Notifications → GloSkin — fully disable all GloSkin notifications.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>I forgot my password. How do I reset it?</summary>
+      <div class="faq-body">
+        <p>On the login screen, tap <strong>"Forgot Password?"</strong> and enter your email address. You'll receive a password reset link within a few minutes.</p>
+        <p>If you signed up with Apple Sign-In or Google Sign-In, you'll need to manage your password through Apple or Google respectively — tap the corresponding sign-in button on the login screen.</p>
+        <p>If you're not receiving the reset email, check your spam/junk folder, or contact us at <a href="mailto:support@gloskin.app">support@gloskin.app</a>.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>The app keeps crashing — what should I do?</summary>
+      <div class="faq-body">
+        <p>We're sorry to hear that! Here's what to try:</p>
+        <ol>
+          <li><strong>Update GloSkin</strong> to the latest version from the App Store.</li>
+          <li><strong>Restart your iPhone</strong> — hold the side button and volume button, then slide to power off.</li>
+          <li><strong>Free up storage</strong> — if your device storage is nearly full, apps can become unstable.</li>
+          <li><strong>Reinstall the app</strong> — delete and reinstall GloSkin from the App Store (your account data is backed up to the cloud).</li>
+        </ol>
+        <p>If crashes continue, email us at <a href="mailto:support@gloskin.app">support@gloskin.app</a> with a description of when the crash occurs, your device model (e.g., iPhone 15 Pro), and your iOS version (Settings → General → About).</p>
+      </div>
+    </details>
+
+  </div>
+
+  <!-- Still need help -->
+  <div class="still-help">
+    <h3>Still need help?</h3>
+    <p>Our support team is ready to assist with anything not covered above.</p>
+    <a href="mailto:support@gloskin.app" class="btn-purple">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="2" y="4" width="20" height="16" rx="2"/>
+        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+      </svg>
+      Email Support
+    </a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-links-row">
+    <a href="index.html">Home</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+    <a href="support.html">Support</a>
+  </div>
+  <p>&copy; 2026 GloSkin. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
