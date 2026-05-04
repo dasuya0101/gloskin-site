@@ -144,13 +144,17 @@
   nav.top .links a { color: var(--ink-soft); text-decoration: none; }
   nav.top .links a:hover { color: var(--ink); }
   nav.top .cta {
-    background: var(--ink); color: var(--paper);
-    padding: 9px 16px; border-radius: var(--r-pill);
-    font-size: 14px; font-weight: 500;
+    color: white;
+    padding: 9px 18px;
+    border-radius: var(--r-pill);
+    font-size: 14px; font-weight: 600;
     text-decoration: none;
-    transition: transform .2s ease, box-shadow .2s ease;
+    background: linear-gradient(135deg, #7B3AED 0%, #A78BFA 50%, #ec7fbe 100%);
+    background-size: 200% 200%;
+    box-shadow: 0 6px 18px -8px rgba(123, 58, 237, .55), inset 0 1px 0 rgba(255,255,255,.4);
+    transition: transform .2s ease, background-position .4s ease;
   }
-  nav.top .cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px -8px rgba(30, 27, 75, .35); }
+  nav.top .cta:hover { transform: translateY(-1px); background-position: 100% 50%; }
   @media (max-width: 720px) { nav.top .links a:not(.cta) { display: none; } }
 
   /* ---------- HERO ---------- */
