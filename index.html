@@ -997,6 +997,17 @@
   fillSparkles(document.getElementById('hero-sparkles'), 28);
   fillSparkles(document.getElementById('closing-sparkles'), 22);
 
+  // ---- waitlist anchor: scroll the email input into view and focus it ----
+  document.querySelectorAll('a[href="#waitlist"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const input = document.querySelector('#waitlist input[type="email"]');
+      if (!input) return;
+      e.preventDefault();
+      input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(() => input.focus({ preventScroll: true }), 550);
+    });
+  });
+
   // ---- scroll reveals ----
   const io = new IntersectionObserver((entries) => {
     for (const e of entries) {
