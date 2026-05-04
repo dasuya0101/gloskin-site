@@ -26,6 +26,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&display=swap" rel="stylesheet" />
 
+<!-- Supabase JS client (waitlist insert) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
   /* ---------- design tokens ---------- */
   :root {
@@ -601,6 +604,10 @@
     display: block;
     object-fit: contain;
     background: transparent;
+    border-radius: var(--r-xl);
+    /* Hack B: blend the flat purple video bg into the page bg.
+       If multiply ever looks wrong on a different bg, swap for a chromakey'd .webm. */
+    mix-blend-mode: multiply;
   }
   .glo-stage video.glo {
     animation: bob 8s ease-in-out infinite;
@@ -1006,22 +1013,52 @@
   }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  // ---- form (no backend yet) ----
-  function submitForm(e, where) {
+  // ---- waitlist form (Supabase insert) ----
+  const SUPABASE_URL = 'https://bgzutjwqqjdijoxkboxc.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnenV0andxcWpkaWpveGtib3hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzMjUyODMsImV4cCI6MjA4OTkwMTI4M30.jk2xuzsZ4ihsmYOUnYhUgazo7nUf6JZ-NnI1GYTcrdM';
+  const sb = (window.supabase && window.supabase.createClient)
+    ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+    : null;
+
+  async function submitForm(e, where) {
     e.preventDefault();
     const form = e.currentTarget;
-    const email = form.querySelector('input[type="email"]').value.trim();
+    const input = form.querySelector('input[type="email"]');
+    const email = input.value.trim().toLowerCase();
     if (!email || !/.+@.+\..+/.test(email)) {
-      form.querySelector('input').focus();
+      input.focus();
       return false;
     }
     const btn = form.querySelector('button');
     const original = btn.textContent;
-    btn.textContent = 'You\u2019re on the list \u2728';
     btn.disabled = true;
-    form.querySelector('input').value = '';
-    setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 4500);
-    // analytics hook would go here, e.g. plausible/fathom event
+    btn.textContent = 'Joining\u2026';
+
+    let success = false;
+    let alreadyOnList = false;
+    if (sb) {
+      const { error } = await sb.from('waitlist').insert({ email, source: where });
+      if (!error) {
+        success = true;
+      } else if (error.code === '23505') {
+        // unique violation = already signed up
+        alreadyOnList = true;
+        success = true;
+      } else {
+        console.error('waitlist insert failed:', error);
+      }
+    } else {
+      console.warn('Supabase client not loaded; waitlist insert skipped.');
+    }
+
+    if (success) {
+      btn.textContent = alreadyOnList ? 'You\u2019re already in \u2728' : 'You\u2019re on the list \u2728';
+      input.value = '';
+      setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 4500);
+    } else {
+      btn.textContent = 'Try again';
+      setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 2500);
+    }
     return false;
   }
 </script>
