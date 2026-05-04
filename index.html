@@ -165,7 +165,14 @@
     gap: clamp(32px, 5vw, 80px);
     align-items: center;
   }
+  /* Mobile keeps the PC two-column structure, just tighter — only stacks at very narrow widths. */
   @media (max-width: 880px) {
+    .hero { padding: clamp(40px, 6vw, 80px) 0; }
+    .hero .grid { gap: clamp(14px, 3vw, 32px); }
+    .hero h1 { font-size: clamp(32px, 6.2vw, 56px); margin-bottom: 14px; }
+    .hero .lede { font-size: clamp(15px, 1.7vw, 18px); margin-bottom: 22px; }
+  }
+  @media (max-width: 520px) {
     .hero .grid { grid-template-columns: 1fr; text-align: center; }
     .hero .lede { margin-inline: auto; }
     .form { margin-inline: auto; }
@@ -307,6 +314,11 @@
   .feature.flip .grid > .copy { order: 2; }
   .feature.flip .grid > .media { order: 1; }
   @media (max-width: 880px) {
+    .feature .grid { gap: clamp(20px, 3vw, 48px); }
+    .feature h2 { font-size: clamp(24px, 4.5vw, 40px); }
+    .feature .lede { font-size: clamp(14px, 1.7vw, 17px); }
+  }
+  @media (max-width: 520px) {
     .feature .grid { grid-template-columns: 1fr; }
     .feature.flip .grid > .copy { order: 2; }
     .feature.flip .grid > .media { order: 1; }
@@ -491,7 +503,10 @@
     align-items: end;
     perspective: 1500px;
   }
-  @media (max-width: 720px) { .phones { grid-template-columns: 1fr; max-width: 360px; } }
+  /* Triptych stays 3-up at all widths per user request — just tighter. */
+  @media (max-width: 720px) {
+    .phones { grid-template-columns: repeat(3, 1fr); gap: clamp(6px, 1.5vw, 14px); max-width: 100%; }
+  }
 
   .phone {
     aspect-ratio: 9 / 19.5;
@@ -508,7 +523,11 @@
   .phone:nth-child(3) { transform: rotate(4deg)  translateY(40px) scale(0.92); }
   .phone:nth-child(2) { z-index: 2; transform: translateY(0); }
   @media (max-width: 720px) {
-    .phone:nth-child(1), .phone:nth-child(3) { transform: none; }
+    .phone { border-radius: 22px; padding: 4px; }
+    .phone .screen { border-radius: 18px; }
+    .phone .notch { width: 36%; height: 14px; top: 7px; }
+    .phone:nth-child(1) { transform: rotate(-3deg) translateY(20px) scale(0.94); }
+    .phone:nth-child(3) { transform: rotate(3deg) translateY(20px) scale(0.94); }
   }
   .phone .screen {
     width: 100%; height: 100%;
@@ -583,6 +602,31 @@
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
     .reveal { opacity: 1; transform: none; }
+  }
+
+  /* ---------- iOS / Safari hero fallback ---------- */
+  /* iOS Safari renders webm-with-alpha as a checker pattern. JS adds the
+     .no-webm-alpha class on Safari/iOS so we swap to the static cutout. */
+  .glo-stage .glo-fallback {
+    display: none;
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    object-fit: contain;
+    z-index: 1;
+    animation: bob 7s ease-in-out infinite;
+    filter: drop-shadow(0 30px 40px rgba(123, 58, 237, 0.25));
+  }
+  .no-webm-alpha .hero .glo-stage video.feature-video { display: none; }
+  .no-webm-alpha .hero .glo-stage .glo-fallback { display: block; }
+
+  /* Hide the iOS native play-button overlay on autoplay loops */
+  video::-webkit-media-controls,
+  video::-webkit-media-controls-start-playback-button,
+  video::-webkit-media-controls-overlay-play-button,
+  video::-webkit-media-controls-panel {
+    display: none !important;
+    -webkit-appearance: none;
   }
 
   /* ---------- video media ---------- */
@@ -674,7 +718,7 @@
         <div class="glo-stage">
           <div class="halo"></div>
           <video
-            autoplay loop muted playsinline
+            autoplay loop muted playsinline webkit-playsinline=""
             preload="auto"
             poster="assets/img/hero-loop-poster.png"
             class="feature-video glo"
@@ -682,10 +726,10 @@
             aria-label="Glo, an iridescent purple-pink AI orb mascot, gently floating and shimmering"
           >
             <!-- Only webm: it carries the alpha channel that lets Glo float on the page bg.
-                 Safari (which doesn't reliably play webm-with-alpha) falls back to the cutout PNG below. -->
+                 Safari/iOS get the static cutout via the .glo-fallback sibling below. -->
             <source src="assets/video/hero-loop.webm" type="video/webm">
-            <img src="assets/img/glo-neutral-cutout.png" alt="Glo, an iridescent purple-pink AI orb mascot with a soft smile, floating gently." />
           </video>
+          <img class="glo glo-fallback" src="assets/img/glo-neutral-cutout.png" alt="Glo, an iridescent purple-pink AI orb mascot with a soft smile." aria-hidden="true" />
         </div>
       </div>
     </div>
@@ -711,7 +755,7 @@
         <div class="media-frame" data-mp4-target="scan">
           <div class="media-inner">
             <video
-              autoplay loop muted playsinline
+              autoplay loop muted playsinline webkit-playsinline=""
               preload="metadata"
               poster="assets/img/scan-loop-poster.jpg"
               class="feature-video"
@@ -752,7 +796,7 @@
         <div class="media-frame" data-mp4-target="chat">
           <div class="media-inner">
             <video
-              autoplay loop muted playsinline
+              autoplay loop muted playsinline webkit-playsinline=""
               preload="metadata"
               poster="assets/img/chat-loop-poster.jpg"
               class="feature-video"
@@ -793,7 +837,7 @@
         <div class="media-frame" data-mp4-target="progress">
           <div class="media-inner">
             <video
-              muted playsinline
+              muted playsinline webkit-playsinline=""
               preload="metadata"
               poster="assets/img/progress-loop-poster.jpg"
               class="feature-video play-on-scroll"
@@ -846,7 +890,7 @@
         <div class="media-frame" data-mp4-target="routine">
           <div class="media-inner">
             <video
-              autoplay loop muted playsinline
+              autoplay loop muted playsinline webkit-playsinline=""
               preload="metadata"
               poster="assets/img/routine-loop-poster.jpg"
               class="feature-video"
@@ -979,6 +1023,15 @@
 
 <!-- ============== JS ============== -->
 <script>
+  // Tag Safari/iOS up front so CSS can swap the alpha-webm hero for the
+  // static cutout (iOS Safari renders webm-with-alpha as a checker pattern).
+  (function () {
+    var ua = navigator.userAgent;
+    var isIOS = /iP(hone|od|ad)/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    var isSafari = /^((?!chrome|android|crios|fxios).)*safari/i.test(ua);
+    if (isIOS || isSafari) document.documentElement.classList.add('no-webm-alpha');
+  })();
+
   // ---- sparkle field generator ----
   function fillSparkles(host, count) {
     const palette = ['', 'pink', 'lilac'];
