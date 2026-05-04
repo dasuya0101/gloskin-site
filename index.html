@@ -604,10 +604,6 @@
     display: block;
     object-fit: contain;
     background: transparent;
-    border-radius: var(--r-xl);
-    /* Hack B: blend the flat purple video bg into the page bg.
-       If multiply ever looks wrong on a different bg, swap for a chromakey'd .webm. */
-    mix-blend-mode: multiply;
   }
   .glo-stage video.glo {
     animation: bob 8s ease-in-out infinite;
@@ -676,13 +672,14 @@
           <video
             autoplay loop muted playsinline
             preload="auto"
-            poster="assets/img/hero-loop-poster.jpg"
+            poster="assets/img/hero-loop-poster.png"
             class="feature-video glo"
             data-mp4-target="hero"
             aria-label="Glo, an iridescent purple-pink AI orb mascot, gently floating and shimmering"
           >
+            <!-- Only webm: it carries the alpha channel that lets Glo float on the page bg.
+                 Safari (which doesn't reliably play webm-with-alpha) falls back to the cutout PNG below. -->
             <source src="assets/video/hero-loop.webm" type="video/webm">
-            <source src="assets/video/hero-loop.mp4" type="video/mp4">
             <img src="assets/img/glo-neutral-cutout.png" alt="Glo, an iridescent purple-pink AI orb mascot with a soft smile, floating gently." />
           </video>
         </div>
