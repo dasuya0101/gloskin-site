@@ -1124,19 +1124,36 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const oneShotVideos = document.querySelectorAll('.play-on-scroll');
-    if (!oneShotVideos.length || !('IntersectionObserver' in window)) return;
+    const loopVideos = document.querySelectorAll('.play-on-scroll');
+    if (!loopVideos.length || !('IntersectionObserver' in window)) return;
+    const PAUSE_MS = 2000; // gap between replays
+
+    loopVideos.forEach(video => {
+      video.addEventListener('ended', () => {
+        if (video.dataset.inView !== 'true') return;
+        setTimeout(() => {
+          if (video.dataset.inView === 'true') {
+            video.currentTime = 0;
+            video.play().catch(() => {});
+          }
+        }, PAUSE_MS);
+      });
+    });
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         const video = entry.target;
-        if (entry.isIntersecting && video.paused && !video.dataset.played) {
-          video.play()
-            .then(() => { video.dataset.played = 'true'; })
-            .catch(err => console.log('Autoplay blocked:', err));
+        if (entry.isIntersecting) {
+          video.dataset.inView = 'true';
+          if (video.paused) {
+            video.play().catch(err => console.log('Autoplay blocked:', err));
+          }
+        } else {
+          video.dataset.inView = 'false';
         }
       });
-    }, { threshold: 0.5 });
-    oneShotVideos.forEach(video => observer.observe(video));
+    }, { threshold: 0.3 });
+    loopVideos.forEach(video => observer.observe(video));
   });
 </script>
 
