@@ -3,6 +3,7 @@
 Thumbs.db
 .vscode/
 .idea/
+.claude/
 
 # Raw video originals stashed by compress-videos.ps1 (safety net, not served)
 assets/video/_raw/
