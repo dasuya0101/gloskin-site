@@ -349,6 +349,10 @@
     border-radius: var(--r-xl);
     overflow: hidden;
     isolation: isolate;
+    /* Force a compositing layer so iOS Safari clips absolutely-positioned
+       videos to the rounded corners (known WebKit bug otherwise). */
+    transform: translateZ(0);
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
     background:
       radial-gradient(closest-side at 30% 30%, rgba(255, 220, 245, 0.65), transparent 65%),
       radial-gradient(closest-side at 70% 60%, rgba(167, 139, 250, 0.5), transparent 70%),
@@ -535,6 +539,9 @@
     overflow: hidden;
     background: linear-gradient(180deg, #EFE6FE, #FCE3F0);
     position: relative;
+    /* iOS Safari rounded-corners clipping fix */
+    transform: translateZ(0);
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
   }
   .phone .screen img {
     width: 100%; height: 100%; object-fit: cover; object-position: top;
@@ -639,7 +646,8 @@
   .media-frame .feature-video {
     position: absolute; inset: 0;
     width: 100%; height: 100%;
-    object-fit: cover;
+    object-fit: contain;          /* don't crop the orb's bubble ears/feet */
+    border-radius: inherit;       /* belt + suspenders for iOS Safari clipping */
   }
   .media-frame .feature-video > img {
     width: 78%; height: 78%; object-fit: contain;
