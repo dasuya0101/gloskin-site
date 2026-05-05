@@ -1046,15 +1046,18 @@
 
 <!-- ============== JS ============== -->
 <script>
-  // Modern Safari/iOS plays the HEVC alpha .mov source. Only fall back to the
-  // static webp on Safari builds too old to decode HEVC (iOS Safari renders
-  // webm-with-alpha as a checker pattern, so it can't be left as the fallback).
+  // iOS / modern Safari play the HEVC alpha mp4 via source selection (it's
+  // the first <source> in the hero <video>). Only desktop Safari that
+  // explicitly reports it cannot play hvc1 needs the static webp fallback —
+  // some iOS versions return "" from canPlayType even though they play the
+  // file fine, so we don't gate iOS on that check.
   (function () {
     var ua = navigator.userAgent;
     var isIOS = /iP(hone|od|ad)/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    if (isIOS) return;
     var isSafari = /^((?!chrome|android|crios|fxios).)*safari/i.test(ua);
     var canHevc = document.createElement('video').canPlayType('video/mp4; codecs="hvc1"') !== '';
-    if ((isIOS || isSafari) && !canHevc) document.documentElement.classList.add('no-webm-alpha');
+    if (isSafari && !canHevc) document.documentElement.classList.add('no-webm-alpha');
   })();
 
   // iOS Safari often blocks autoplay until the page receives user interaction.
