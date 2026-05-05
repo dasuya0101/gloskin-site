@@ -727,11 +727,11 @@
             data-mp4-target="hero"
             aria-label="Glo, an iridescent purple-pink AI orb mascot, gently floating and shimmering"
           >
-            <!-- Both sources carry alpha. Safari/iOS fetch the HEVC mov (video/quicktime
-                 is a Safari-only MIME so other browsers skip past it); Chrome/Firefox
-                 fall through to the VP9 webm. The WebP sibling below covers Safari
-                 versions too old to decode HEVC. -->
-            <source src="assets/video/hero-loop.mov" type="video/quicktime">
+            <!-- Both sources carry alpha. Safari/iOS recognizes the hvc1 codec hint
+                 and fetches the HEVC mov; Chrome/Firefox fall through to the VP9
+                 webm. The WebP sibling below covers Safari versions too old to
+                 decode HEVC. -->
+            <source src="assets/video/hero-loop.mov" type='video/mp4; codecs="hvc1"'>
             <source src="assets/video/hero-loop.webm" type="video/webm">
           </video>
           <!-- Animated WebP plays everywhere webm-with-alpha doesn't (iOS Safari).
