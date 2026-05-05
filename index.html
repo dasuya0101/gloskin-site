@@ -623,7 +623,9 @@
 
   /* ---------- iOS / Safari hero fallback ---------- */
   /* iOS Safari renders webm-with-alpha as a checker pattern. JS adds the
-     .no-webm-alpha class on Safari/iOS so we swap to the purple-bg mp4. */
+     .no-webm-alpha class on Safari/iOS so we swap to the purple-bg mp4 —
+     but only on mobile, since modern desktop Safari plays the alpha webm
+     fine and the purple card style is a mobile-only treatment. */
   .glo-stage .glo-fallback {
     display: none;
     position: absolute;
@@ -633,8 +635,6 @@
     z-index: 1;
     filter: drop-shadow(0 30px 40px rgba(123, 58, 237, 0.25));
   }
-  .no-webm-alpha .hero .glo-stage video.feature-video:not(.glo-fallback) { display: none; }
-  .no-webm-alpha .hero .glo-stage .glo-fallback { display: block; }
 
   /* ---------- mobile hero: purple card + feature video zoom ---------- */
   /* On mobile the hero adopts the same purple card style as the feature
@@ -652,6 +652,11 @@
     }
     /* The radial glow inside the card competes with the solid bg — drop it on mobile. */
     .hero .glo-stage .halo { display: none; }
+
+    /* Swap the alpha webm hero for the purple-bg fallback mp4 on mobile only.
+       Desktop Safari (which also gets the no-webm-alpha class) keeps the webm. */
+    .no-webm-alpha .hero .glo-stage video.feature-video:not(.glo-fallback) { display: none; }
+    .no-webm-alpha .hero .glo-stage .glo-fallback { display: block; }
 
     /* Feature videos zoom in so Glo fills the frame instead of getting lost in
        the purple letterbox bands. Frame already has overflow:hidden. */
