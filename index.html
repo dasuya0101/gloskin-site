@@ -537,11 +537,9 @@
     width: 100%; height: 100%; object-fit: cover; object-position: top;
     display: block;
   }
-  .phone .notch {
-    position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
-    width: 36%; height: 26px;
-    background: var(--ink); border-radius: 999px; z-index: 3;
-  }
+  /* Screenshots already include the iOS notch / dynamic island, so the
+     fake CSS notch was double-drawing on top of the real one. Hidden. */
+  .phone .notch { display: none; }
   /* placeholder labels for phones 1 and 3 */
   .phone .placeholder {
     position: absolute; inset: 0;
@@ -1024,12 +1022,29 @@
 <!-- ============== JS ============== -->
 <script>
   // Tag Safari/iOS up front so CSS can swap the alpha-webm hero for the
-  // static cutout (iOS Safari renders webm-with-alpha as a checker pattern).
+  // animated webp (iOS Safari renders webm-with-alpha as a checker pattern).
   (function () {
     var ua = navigator.userAgent;
     var isIOS = /iP(hone|od|ad)/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     var isSafari = /^((?!chrome|android|crios|fxios).)*safari/i.test(ua);
     if (isIOS || isSafari) document.documentElement.classList.add('no-webm-alpha');
+  })();
+
+  // iOS Safari often blocks autoplay until the page receives user interaction.
+  // On first touch/scroll, retry play() on every autoplay video so they all
+  // come alive at once instead of needing one tap per video.
+  (function () {
+    var tried = false;
+    function nudge() {
+      if (tried) return;
+      tried = true;
+      document.querySelectorAll('video[autoplay]').forEach(function (v) {
+        if (v.paused) v.play().catch(function () {});
+      });
+    }
+    ['touchstart', 'click', 'scroll'].forEach(function (ev) {
+      document.addEventListener(ev, nudge, { once: true, passive: true });
+    });
   })();
 
   // ---- sparkle field generator ----
