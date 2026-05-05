@@ -733,8 +733,6 @@
       </div>
 
       <div class="media">
-        <!-- TEMP DIAG: remove after iOS hero verification -->
-        <pre id="hero-diag" style="position:fixed;top:60px;left:6px;right:6px;z-index:9999;background:rgba(0,0,0,0.88);color:#0f0;font:10px ui-monospace,Menlo,monospace;padding:8px;border-radius:6px;max-height:60vh;overflow:auto;white-space:pre-wrap;word-break:break-all;margin:0;line-height:1.35;"></pre>
         <div class="glo-stage">
           <div class="halo"></div>
           <video
@@ -745,15 +743,8 @@
             data-mp4-target="hero"
             aria-label="Glo, an iridescent purple-pink AI orb mascot, gently floating and shimmering"
           >
-            <!-- Both sources carry alpha. Safari/iOS picks the HEVC mp4 via one
-                 of the codec hints below (different iOS versions answer
-                 canPlayType differently for the same codec — listing several
-                 variants is the most reliable way to get a hit). Chrome/Firefox
-                 fall through to the VP9 webm. The WebP sibling below covers
-                 Safari versions too old to decode HEVC. -->
-            <source src="assets/video/hero-loop-alpha.mp4" type='video/mp4; codecs="hvc1.1.6.L90.B0"'>
-            <source src="assets/video/hero-loop-alpha.mp4" type='video/mp4; codecs="hvc1"'>
-            <source src="assets/video/hero-loop-alpha.mp4" type="video/mp4">
+            <!-- Only webm: it carries the alpha channel that lets Glo float on the page bg.
+                 Safari/iOS get the static cutout via the .glo-fallback sibling below. -->
             <source src="assets/video/hero-loop.webm" type="video/webm">
           </video>
           <!-- Animated WebP plays everywhere webm-with-alpha doesn't (iOS Safari).
@@ -1052,71 +1043,13 @@
 
 <!-- ============== JS ============== -->
 <script>
-  // iOS / modern Safari play the HEVC alpha mp4 via source selection (it's
-  // the first <source> in the hero <video>). Only desktop Safari that
-  // explicitly reports it cannot play hvc1 needs the static webp fallback —
-  // some iOS versions return "" from canPlayType even though they play the
-  // file fine, so we don't gate iOS on that check.
+  // Tag Safari/iOS up front so CSS can swap the alpha-webm hero for the
+  // animated webp (iOS Safari renders webm-with-alpha as a checker pattern).
   (function () {
     var ua = navigator.userAgent;
     var isIOS = /iP(hone|od|ad)/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    if (isIOS) return;
     var isSafari = /^((?!chrome|android|crios|fxios).)*safari/i.test(ua);
-    var canHevc = document.createElement('video').canPlayType('video/mp4; codecs="hvc1"') !== '';
-    if (isSafari && !canHevc) document.documentElement.classList.add('no-webm-alpha');
-  })();
-
-  // TEMP DIAG: surface what iOS Safari is actually doing with the hero video.
-  (function () {
-    function render() {
-      var diag = document.getElementById('hero-diag');
-      if (!diag) return;
-      var v = document.querySelector('.glo-stage video');
-      var probe = document.createElement('video');
-      var lines = [];
-      lines.push('UA: ' + navigator.userAgent);
-      lines.push('platform: ' + navigator.platform + ' touch:' + navigator.maxTouchPoints);
-      lines.push('— canPlayType —');
-      [
-        'video/mp4',
-        'video/mp4; codecs="hvc1"',
-        'video/mp4; codecs="hvc1.1.6.L90.B0"',
-        'video/mp4; codecs="hev1"',
-        'video/quicktime',
-        'video/webm',
-        'video/webm; codecs="vp9"'
-      ].forEach(function (s) {
-        lines.push('  [' + (probe.canPlayType(s) || '-') + '] ' + s);
-      });
-      if (v) {
-        lines.push('— hero <video> —');
-        lines.push('  currentSrc: ' + (v.currentSrc || '(none)'));
-        lines.push('  networkState: ' + v.networkState + '  readyState: ' + v.readyState);
-        lines.push('  paused: ' + v.paused + '  ended: ' + v.ended);
-        lines.push('  error: ' + (v.error ? 'code=' + v.error.code + ' msg=' + (v.error.message || '?') : 'null'));
-        lines.push('  sources:');
-        Array.prototype.forEach.call(v.querySelectorAll('source'), function (s) {
-          lines.push('    ' + s.getAttribute('src') + '  [' + (s.getAttribute('type') || '') + ']');
-        });
-      } else {
-        lines.push('no <video> element found');
-      }
-      lines.push('— class on <html> —');
-      lines.push('  ' + document.documentElement.className);
-      diag.textContent = lines.join('\n');
-    }
-    function bind() {
-      var v = document.querySelector('.glo-stage video');
-      if (v) {
-        ['loadstart','loadedmetadata','loadeddata','canplay','canplaythrough','play','playing','pause','error','stalled','suspend','waiting','abort','emptied'].forEach(function (ev) {
-          v.addEventListener(ev, render, true);
-        });
-      }
-      render();
-      setInterval(render, 1500);
-    }
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
-    else bind();
+    if (isIOS || isSafari) document.documentElement.classList.add('no-webm-alpha');
   })();
 
   // iOS Safari often blocks autoplay until the page receives user interaction.
