@@ -353,20 +353,10 @@
        videos to the rounded corners (known WebKit bug otherwise). */
     transform: translateZ(0);
     -webkit-mask-image: -webkit-radial-gradient(white, black);
-    background:
-      radial-gradient(closest-side at 30% 30%, rgba(255, 220, 245, 0.65), transparent 65%),
-      radial-gradient(closest-side at 70% 60%, rgba(167, 139, 250, 0.5), transparent 70%),
-      linear-gradient(135deg, #EFE6FE 0%, #FCE3F0 100%);
+    /* Solid purple bg matches the feature videos' baked-in bg, so the
+       letterbox area (object-fit: contain) blends seamlessly with the video. */
+    background: #977fd9;
     box-shadow: var(--shadow-soft);
-  }
-  .media-frame::after {
-    /* subtle noise for a tactile, non-flat feel */
-    content: ""; position: absolute; inset: 0;
-    background-image: radial-gradient(rgba(123, 58, 237, 0.05) 1px, transparent 1px);
-    background-size: 3px 3px;
-    mix-blend-mode: multiply;
-    opacity: 0.6;
-    pointer-events: none;
   }
   .media-frame .media-inner {
     position: absolute; inset: 0;
@@ -737,7 +727,9 @@
                  Safari/iOS get the static cutout via the .glo-fallback sibling below. -->
             <source src="assets/video/hero-loop.webm" type="video/webm">
           </video>
-          <img class="glo glo-fallback" src="assets/img/glo-neutral-cutout.png" alt="Glo, an iridescent purple-pink AI orb mascot with a soft smile." aria-hidden="true" />
+          <!-- Animated WebP plays everywhere webm-with-alpha doesn't (iOS Safari).
+               loading=lazy keeps non-Safari browsers from fetching it since CSS hides it for them. -->
+          <img class="glo glo-fallback" src="assets/img/hero-loop-anim.webp" alt="Glo, an iridescent purple-pink AI orb mascot, gently floating and shimmering." aria-hidden="true" loading="lazy" />
         </div>
       </div>
     </div>
@@ -750,12 +742,12 @@
     <div class="grid row">
       <div class="copy reveal">
         <span class="eyebrow">01 · The scan</span>
-        <h2 style="margin-top:18px">Meet your <em>skin</em>, scientifically.</h2>
-        <p class="lede">A 60-second AI face scan reads your skin like a chart. You get a personalized Glo Score from 0 to 100 and zone-by-zone insights — forehead, cheeks, T-zone, jaw — so you know exactly what's working.</p>
+        <h2 style="margin-top:18px">A full skincare <em>consultation</em>, in minutes.</h2>
+        <p class="lede">A 60-second face scan reads your skin type and analyzes every zone — forehead, cheeks, T-zone, jaw — then builds a personalized Glo Score and a custom care plan tailored to what your skin actually needs.</p>
         <ul class="ticks">
-          <li>Hydration, tone, texture, redness — measured per zone</li>
-          <li>No flash, no tricks, no &ldquo;before&rdquo; dread</li>
-          <li>Re-scan weekly to watch your score climb</li>
+          <li>Hydration, tone, texture, and redness measured per zone</li>
+          <li>Personalized Glo Score from 0 to 100, updated every scan</li>
+          <li>A custom routine built from your results — not a template</li>
         </ul>
       </div>
 
@@ -791,12 +783,12 @@
     <div class="grid row">
       <div class="copy reveal">
         <span class="eyebrow">02 · The guru</span>
-        <h2 style="margin-top:18px">Your AI skincare <em>guru</em>, 24/7.</h2>
-        <p class="lede">Glo answers the questions you'd text a friend who happens to be a dermatologist. Product swaps, ingredient conflicts, that one breakout that won't quit — she remembers your skin profile and adapts as you progress.</p>
+        <h2 style="margin-top:18px">Your AI skincare <em>guru</em>, on call 24/7.</h2>
+        <p class="lede">Ask Glo anything — product swaps, ingredient conflicts, the breakout that won't quit. She holds your skin profile in memory and updates it as your skin changes, so the answers always fit where you are in your routine.</p>
         <ul class="ticks">
-          <li>Trained on dermatology research, tuned for real life</li>
-          <li>Knows your routine, allergens, and goals</li>
-          <li>Talks like a friend, not a medical chart</li>
+          <li>Grounded in current dermatology research</li>
+          <li>Tracks your routine, allergens, and goals over time</li>
+          <li>Clear, professional answers — no medical-chart jargon</li>
         </ul>
       </div>
 
@@ -833,11 +825,11 @@
       <div class="copy reveal">
         <span class="eyebrow">03 · The progress</span>
         <h2 style="margin-top:18px">See your progress, <em>week by week</em>.</h2>
-        <p class="lede">A daily 5-second selfie check-in. A score trend chart that doesn't lie. AI-generated weekly reviews that read like a kind, observant friend writing in your journal.</p>
+        <p class="lede">A 5-second selfie check-in updates your skin profile and keeps Glo in the loop. She catches changes early, suggests adjustments before issues take hold, and keeps you honest with the routine you committed to.</p>
         <ul class="ticks">
-          <li>Side-by-side before/after, generated automatically</li>
-          <li>Trend lines per zone — see where the work is paying off</li>
-          <li>Weekly review notes you'll actually read</li>
+          <li>Trend lines per zone, so you see what's actually working</li>
+          <li>Side-by-side before / after captured automatically</li>
+          <li>Product suggestions tuned to how your skin is responding</li>
         </ul>
       </div>
 
@@ -886,11 +878,11 @@
       <div class="copy reveal">
         <span class="eyebrow">04 · The routine</span>
         <h2 style="margin-top:18px">Routines that actually <em>fit your life</em>.</h2>
-        <p class="lede">A morning checklist you can finish before the kettle boils. Smart reminders that don't nag. Product recs matched to your skin, your goals, and your budget — not whatever's trending.</p>
+        <p class="lede">A quick morning checklist tailored to you. Smart reminders that work around your schedule. Product recommendations matched to your skin, your goals, and your budget — not whatever's trending.</p>
         <ul class="ticks">
-          <li>Daily checklists, AM and PM</li>
-          <li>Reminders that move when you do</li>
-          <li>Product recommendations from real ingredients, not hype</li>
+          <li>Focused AM and PM routines, never overloaded</li>
+          <li>Reminders that flex around your day</li>
+          <li>Recommendations chosen for ingredients that work</li>
         </ul>
       </div>
 

@@ -31,13 +31,14 @@ if (-not $ffmpeg) {
 }
 
 # Crops are expressed as a fraction of source height (works across 960/1080/1440 sources).
-# Standard: drop ~7.4% top (Dreamina watermark) + ~7.4% bottom (centering). Calibrated as 80/1080.
-# Scan:     drop ~8.3% top + ~8.3% bottom. Calibrated as 90/1080 to fully clear the Dreamina "Ai" badge.
-$standardTopFrac = 80 / 1080
-$scanTopFrac     = 90 / 1080
+# Standard: drop ~4.6% top + ~4.6% bottom. 50/1080 keeps decorative halos/sparkles
+# in frame; the Dreamina "Ai" badge stays out of the kept area at this crop too.
+# Scan:     same fraction so the sparkle ring above Glo stays fully visible.
+$standardTopFrac = 50 / 1080
+$scanTopFrac     = 50 / 1080
 
 $videos = @(
-    @{name="hero-loop";     topFrac=$standardTopFrac},
+    # hero-loop is chromakey'd separately (see git history) — skipping in this batch script.
     @{name="scan-loop";     topFrac=$scanTopFrac},
     @{name="chat-loop";     topFrac=$standardTopFrac},
     @{name="progress-loop"; topFrac=$standardTopFrac},
