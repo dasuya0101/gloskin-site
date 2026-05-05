@@ -527,15 +527,9 @@
   .phone:nth-child(3) { transform: rotate(4deg)  translateY(40px) scale(0.92); }
   .phone:nth-child(2) { z-index: 2; transform: translateY(0); }
   @media (max-width: 720px) {
-    .phone {
-      border-radius: 12px;
-      padding: 2px;
-      /* Lighter shadow at mobile so the bezel reads crisp instead of puffy. */
-      box-shadow: 0 18px 36px -18px rgba(123, 58, 237, 0.35),
-                  0 8px 16px -10px rgba(30, 27, 75, 0.25),
-                  inset 0 0 0 1px rgba(255,255,255,0.08);
-    }
-    .phone .screen { border-radius: 10px; }
+    /* Mobile bezels inherit desktop border-radius/padding exactly so the
+       phones read as scaled-down replicas instead of re-tuned at mobile.
+       Only the layout (overlap + scale) is adjusted. */
     .phone:nth-child(1) {
       transform: rotate(-4deg) translate(14px, 18px) scale(0.86);
       z-index: 1;
