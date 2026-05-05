@@ -623,7 +623,7 @@
 
   /* ---------- iOS / Safari hero fallback ---------- */
   /* iOS Safari renders webm-with-alpha as a checker pattern. JS adds the
-     .no-webm-alpha class on Safari/iOS so we swap to the static cutout. */
+     .no-webm-alpha class on Safari/iOS so we swap to the purple-bg mp4. */
   .glo-stage .glo-fallback {
     display: none;
     position: absolute;
@@ -631,11 +631,32 @@
     width: 100%; height: 100%;
     object-fit: contain;
     z-index: 1;
-    animation: bob 7s ease-in-out infinite;
     filter: drop-shadow(0 30px 40px rgba(123, 58, 237, 0.25));
   }
-  .no-webm-alpha .hero .glo-stage video.feature-video { display: none; }
+  .no-webm-alpha .hero .glo-stage video.feature-video:not(.glo-fallback) { display: none; }
   .no-webm-alpha .hero .glo-stage .glo-fallback { display: block; }
+
+  /* ---------- mobile hero: purple card + feature video zoom ---------- */
+  /* On mobile the hero adopts the same purple card style as the feature
+     media-frames. The fallback mp4 has Glo composited onto matching purple,
+     so iOS gets a clean Glo-in-card that mirrors the cards below. */
+  @media (max-width: 720px) {
+    .hero .glo-stage {
+      background: #977fd9;
+      border-radius: var(--r-xl);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      isolation: isolate;
+      transform: translateZ(0);
+      -webkit-mask-image: -webkit-radial-gradient(white, black);
+    }
+    /* The radial glow inside the card competes with the solid bg — drop it on mobile. */
+    .hero .glo-stage .halo { display: none; }
+
+    /* Feature videos zoom in so Glo fills the frame instead of getting lost in
+       the purple letterbox bands. Frame already has overflow:hidden. */
+    .media-frame .feature-video { transform: scale(1.25); transform-origin: center; }
+  }
 
   /* Hide the iOS native play-button overlay on autoplay loops */
   video::-webkit-media-controls,
@@ -744,12 +765,16 @@
             aria-label="Glo, an iridescent purple-pink AI orb mascot, gently floating and shimmering"
           >
             <!-- Only webm: it carries the alpha channel that lets Glo float on the page bg.
-                 Safari/iOS get the static cutout via the .glo-fallback sibling below. -->
+                 Safari/iOS swap to the purple-bg .glo-fallback video below. -->
             <source src="assets/video/hero-loop.webm" type="video/webm">
           </video>
-          <!-- Animated WebP plays everywhere webm-with-alpha doesn't (iOS Safari).
-               loading=lazy keeps non-Safari browsers from fetching it since CSS hides it for them. -->
-          <img class="glo glo-fallback" src="assets/img/hero-loop-anim.webp" alt="Glo, an iridescent purple-pink AI orb mascot, gently floating and shimmering." aria-hidden="true" loading="lazy" />
+          <!-- iOS / Safari fallback: a plain h264 mp4 with Glo already composited
+               onto the solid purple card bg (matching the feature media-frames),
+               so it plays cleanly without any alpha-channel gymnastics. CSS hides
+               it for non-Safari browsers, which use the alpha webm above. -->
+          <video class="glo glo-fallback" autoplay loop muted playsinline webkit-playsinline="" preload="auto" poster="assets/img/hero-loop-poster.png" aria-hidden="true">
+            <source src="assets/video/hero-loop-mobile.mp4" type="video/mp4">
+          </video>
         </div>
       </div>
     </div>
