@@ -733,6 +733,8 @@
       </div>
 
       <div class="media">
+        <!-- TEMP DIAG: remove after iOS hero verification -->
+        <pre id="hero-diag" style="position:fixed;top:60px;left:6px;right:6px;z-index:9999;background:rgba(0,0,0,0.88);color:#0f0;font:10px ui-monospace,Menlo,monospace;padding:8px;border-radius:6px;max-height:60vh;overflow:auto;white-space:pre-wrap;word-break:break-all;margin:0;line-height:1.35;"></pre>
         <div class="glo-stage">
           <div class="halo"></div>
           <video
@@ -1062,6 +1064,59 @@
     var isSafari = /^((?!chrome|android|crios|fxios).)*safari/i.test(ua);
     var canHevc = document.createElement('video').canPlayType('video/mp4; codecs="hvc1"') !== '';
     if (isSafari && !canHevc) document.documentElement.classList.add('no-webm-alpha');
+  })();
+
+  // TEMP DIAG: surface what iOS Safari is actually doing with the hero video.
+  (function () {
+    function render() {
+      var diag = document.getElementById('hero-diag');
+      if (!diag) return;
+      var v = document.querySelector('.glo-stage video');
+      var probe = document.createElement('video');
+      var lines = [];
+      lines.push('UA: ' + navigator.userAgent);
+      lines.push('platform: ' + navigator.platform + ' touch:' + navigator.maxTouchPoints);
+      lines.push('— canPlayType —');
+      [
+        'video/mp4',
+        'video/mp4; codecs="hvc1"',
+        'video/mp4; codecs="hvc1.1.6.L90.B0"',
+        'video/mp4; codecs="hev1"',
+        'video/quicktime',
+        'video/webm',
+        'video/webm; codecs="vp9"'
+      ].forEach(function (s) {
+        lines.push('  [' + (probe.canPlayType(s) || '-') + '] ' + s);
+      });
+      if (v) {
+        lines.push('— hero <video> —');
+        lines.push('  currentSrc: ' + (v.currentSrc || '(none)'));
+        lines.push('  networkState: ' + v.networkState + '  readyState: ' + v.readyState);
+        lines.push('  paused: ' + v.paused + '  ended: ' + v.ended);
+        lines.push('  error: ' + (v.error ? 'code=' + v.error.code + ' msg=' + (v.error.message || '?') : 'null'));
+        lines.push('  sources:');
+        Array.prototype.forEach.call(v.querySelectorAll('source'), function (s) {
+          lines.push('    ' + s.getAttribute('src') + '  [' + (s.getAttribute('type') || '') + ']');
+        });
+      } else {
+        lines.push('no <video> element found');
+      }
+      lines.push('— class on <html> —');
+      lines.push('  ' + document.documentElement.className);
+      diag.textContent = lines.join('\n');
+    }
+    function bind() {
+      var v = document.querySelector('.glo-stage video');
+      if (v) {
+        ['loadstart','loadedmetadata','loadeddata','canplay','canplaythrough','play','playing','pause','error','stalled','suspend','waiting','abort','emptied'].forEach(function (ev) {
+          v.addEventListener(ev, render, true);
+        });
+      }
+      render();
+      setInterval(render, 1500);
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
+    else bind();
   })();
 
   // iOS Safari often blocks autoplay until the page receives user interaction.
