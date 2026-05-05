@@ -511,9 +511,7 @@
   }
 
   .phone {
-    /* Slightly squatter than 9/19.5 so the screenshots' baked-in iOS status
-       bar / Dynamic Island gets cropped at the top via object-position. */
-    aspect-ratio: 9 / 17.5;
+    aspect-ratio: 9 / 19.5;
     background: var(--ink);
     border-radius: 30px;
     padding: 5px;
@@ -529,7 +527,11 @@
   @media (max-width: 720px) {
     /* Mobile bezels inherit desktop border-radius/padding exactly so the
        phones read as scaled-down replicas instead of re-tuned at mobile.
-       Only the layout (overlap + scale) is adjusted. */
+       Only the layout (overlap + scale) and the iOS-status-bar crop are
+       adjusted — the latter so the screenshots' baked-in dynamic island
+       gets cropped at the top. */
+    .phone { aspect-ratio: 9 / 17.5; }
+    .phone .screen img { object-position: 0 100%; }
     .phone:nth-child(1) {
       transform: rotate(-4deg) translate(14px, 18px) scale(0.86);
       z-index: 1;
@@ -551,12 +553,9 @@
     -webkit-mask-image: -webkit-radial-gradient(white, black);
   }
   .phone .screen img {
-    /* Bottom-anchor + the squatter phone aspect ratio crops the iOS status
-       bar + Dynamic Island off the top of each screenshot, so the captured
-       iOS UI doesn't fight with the mock bezel. */
     width: 100%; height: 100%;
     object-fit: cover;
-    object-position: 0 100%;
+    object-position: top;
     display: block;
   }
   /* Screenshots already include the iOS notch / dynamic island, so the
