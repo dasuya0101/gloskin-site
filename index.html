@@ -727,8 +727,11 @@
             data-mp4-target="hero"
             aria-label="Glo, an iridescent purple-pink AI orb mascot, gently floating and shimmering"
           >
-            <!-- Only webm: it carries the alpha channel that lets Glo float on the page bg.
-                 Safari/iOS get the static cutout via the .glo-fallback sibling below. -->
+            <!-- Both sources carry alpha. Safari/iOS fetch the HEVC mov (video/quicktime
+                 is a Safari-only MIME so other browsers skip past it); Chrome/Firefox
+                 fall through to the VP9 webm. The WebP sibling below covers Safari
+                 versions too old to decode HEVC. -->
+            <source src="assets/video/hero-loop.mov" type="video/quicktime">
             <source src="assets/video/hero-loop.webm" type="video/webm">
           </video>
           <!-- Animated WebP plays everywhere webm-with-alpha doesn't (iOS Safari).
@@ -1027,13 +1030,15 @@
 
 <!-- ============== JS ============== -->
 <script>
-  // Tag Safari/iOS up front so CSS can swap the alpha-webm hero for the
-  // animated webp (iOS Safari renders webm-with-alpha as a checker pattern).
+  // Modern Safari/iOS plays the HEVC alpha .mov source. Only fall back to the
+  // static webp on Safari builds too old to decode HEVC (iOS Safari renders
+  // webm-with-alpha as a checker pattern, so it can't be left as the fallback).
   (function () {
     var ua = navigator.userAgent;
     var isIOS = /iP(hone|od|ad)/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     var isSafari = /^((?!chrome|android|crios|fxios).)*safari/i.test(ua);
-    if (isIOS || isSafari) document.documentElement.classList.add('no-webm-alpha');
+    var canHevc = document.createElement('video').canPlayType('video/mp4; codecs="hvc1"') !== '';
+    if ((isIOS || isSafari) && !canHevc) document.documentElement.classList.add('no-webm-alpha');
   })();
 
   // iOS Safari often blocks autoplay until the page receives user interaction.
