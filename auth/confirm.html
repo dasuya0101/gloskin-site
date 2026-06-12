@@ -1,181 +1,54 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>Email Confirmed — GloSkin</title>
-<meta name="description" content="Your GloSkin account has been verified. Return to the GloSkin app to start your personalized skincare journey." />
-<meta name="theme-color" content="#C7B8F5" />
-<meta name="robots" content="noindex" />
-
-<link rel="icon" type="image/png" href="../assets/img/glo-face-cutout.png" />
-<link rel="apple-touch-icon" href="../assets/img/glo-face-cutout.png" />
-
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-
-<style>
-  :root {
-    --purple:    #7C3AED;
-    --purple-2:  #A78BFA;
-    --pink:      #ec7fbe;
-    --ink:       #1E1B4B;
-    --ink-soft:  #46437a;
-    --ink-mute:  #6b6896;
-    --paper:     #FAF7FF;
-    --line-soft: rgba(30, 27, 75, 0.06);
-    --r-lg:      28px;
-    --r-pill:    999px;
-    --shadow-card:
-      0 1px 0 rgba(255,255,255,0.7) inset,
-      0 20px 50px -25px rgba(123, 58, 237, 0.28),
-      0 4px 16px -8px rgba(30, 27, 75, 0.08);
-  }
-
-  * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
-  body {
-    margin: 0;
-    min-height: 100vh;
-    display: grid;
-    place-items: center;
-    padding: 28px;
-    font-family: 'Nunito', -apple-system, system-ui, sans-serif;
-    color: var(--ink);
-    background: var(--paper);
-    -webkit-font-smoothing: antialiased;
-    line-height: 1.55;
-  }
-
-  /* lavender gradient field */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: -10vh -10vw;
-    z-index: -1;
-    background:
-      radial-gradient(60vw 60vw at 12% 8%,  #EFE6FE 0%, transparent 60%),
-      radial-gradient(50vw 50vw at 95% 22%, #FCE3F0 0%, transparent 60%),
-      radial-gradient(70vw 70vw at 80% 78%, #E2D4FB 0%, transparent 60%),
-      radial-gradient(45vw 45vw at 5% 92%,  #FAEEF6 0%, transparent 60%),
-      var(--paper);
-  }
-
-  .card {
-    width: min(440px, 100%);
-    background: rgba(255,255,255,0.78);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid var(--line-soft);
-    border-radius: var(--r-lg);
-    box-shadow: var(--shadow-card);
-    padding: 44px 36px 36px;
-    text-align: center;
-  }
-
-  .brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    text-decoration: none;
-    color: var(--ink);
-    margin-bottom: 28px;
-  }
-  .brand img { width: 30px; height: 30px; display: block; filter: drop-shadow(0 4px 10px rgba(123, 58, 237, .25)); }
-  .brand .word { font-weight: 800; font-size: 19px; letter-spacing: -0.02em; }
-
-  /* checkmark circle */
-  .check-circle {
-    width: 92px; height: 92px;
-    margin: 0 auto 26px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    background: linear-gradient(135deg, #7C3AED 0%, #A78BFA 55%, #ec7fbe 100%);
-    box-shadow:
-      0 18px 40px -14px rgba(123, 58, 237, 0.55),
-      inset 0 1px 0 rgba(255,255,255,0.4);
-    animation: pop .5s cubic-bezier(.2,.9,.3,1.3) both;
-  }
-  .check-circle svg { width: 46px; height: 46px; display: block; }
-  .check-circle svg path {
-    stroke-dasharray: 30;
-    stroke-dashoffset: 30;
-    animation: draw .5s ease .35s forwards;
-  }
-  @keyframes pop { 0% { transform: scale(0.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-  @keyframes draw { to { stroke-dashoffset: 0; } }
-
-  h1 {
-    font-size: 28px;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    margin: 0 0 14px;
-    color: var(--ink);
-  }
-
-  .subtitle {
-    font-size: 16px;
-    color: var(--ink-soft);
-    margin: 0 auto 30px;
-    max-width: 34ch;
-  }
-
-  .btn {
-    display: inline-block;
-    width: 100%;
-    color: white;
-    font-weight: 700;
-    font-size: 16px;
-    padding: 15px 24px;
-    border-radius: var(--r-pill);
-    text-decoration: none;
-    background: linear-gradient(135deg, #7C3AED 0%, #A78BFA 50%, #ec7fbe 100%);
-    background-size: 200% 200%;
-    box-shadow: 0 8px 24px -8px rgba(123, 58, 237, .55), inset 0 1px 0 rgba(255,255,255,.4);
-    transition: transform .2s ease, background-position .4s ease;
-  }
-  .btn:hover { transform: translateY(-1px); background-position: 100% 50%; }
-
-  .footnote {
-    margin: 22px auto 0;
-    font-size: 13px;
-    color: var(--ink-mute);
-    max-width: 36ch;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .check-circle, .check-circle svg path { animation: none; }
-    .check-circle svg path { stroke-dashoffset: 0; }
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Email Confirmed — GloSkin</title>
+  <meta name="description" content="Your GloSkin email has been verified. You can now sign in to the app." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --purple-600: #7C3AED; --purple-500: #8B5CF6; --purple-400: #A78BFA;
+      --purple-100: #EDE9FE; --purple-50: #F5F3FF; --white: #FFFFFF;
+      --gray-500: #6B7280; --gray-900: #111827;
+    }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, var(--purple-50) 0%, var(--white) 50%, var(--purple-100) 100%);
+      color: var(--gray-900); min-height: 100vh;
+      display: flex; align-items: center; justify-content: center; padding: 24px;
+    }
+    .card {
+      background: var(--white); border-radius: 28px; padding: 48px 36px;
+      max-width: 440px; width: 100%; text-align: center;
+      box-shadow: 0 20px 60px rgba(124,58,237,0.1), 0 4px 16px rgba(0,0,0,0.04);
+    }
+    .checkmark {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--purple-500), var(--purple-600));
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;
+    }
+    .checkmark svg { width: 36px; height: 36px; stroke: white; stroke-width: 3; fill: none; }
+    h1 { font-size: 1.75rem; font-weight: 800; margin-bottom: 12px; color: var(--gray-900); }
+    .subtitle { font-size: 1.05rem; color: var(--gray-500); margin-bottom: 32px; line-height: 1.6; }
+    .logo { font-size: 1.2rem; font-weight: 900; color: var(--purple-600); margin-bottom: 32px; }
+  </style>
 </head>
-
 <body>
-  <main class="card">
-    <a class="brand" href="https://gloskin.app" aria-label="GloSkin home">
-      <img src="../assets/img/glo-face-cutout.png" alt="" />
-      <span class="word">GloSkin</span>
-    </a>
-
-    <div class="check-circle" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M5 13l4 4L19 7" />
+  <div class="card">
+    <div class="logo">GloSkin</div>
+    <div class="checkmark">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <polyline points="20 6 9 17 4 12" />
       </svg>
     </div>
-
     <h1>Email Confirmed!</h1>
     <p class="subtitle">
-      Your account has been verified successfully. You can now return to GloSkin to start your personalized skincare journey.
+      Your account has been verified. You can close this page and reopen GloSkin to sign in.
     </p>
-
-    <a class="btn" href="#">Return to GloSkin</a>
-
-    <p class="footnote">
-      Go back to the GloSkin app on your phone to get started.
-    </p>
-  </main>
+  </div>
 </body>
 </html>
