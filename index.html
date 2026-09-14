@@ -229,8 +229,11 @@
     font-size: 13px; line-height: 1.1;
     text-decoration: none;
     opacity: 0.9;
-    cursor: not-allowed;
+    cursor: pointer;
+    transition: opacity .15s ease, transform .15s ease;
   }
+  .app-badge:hover { opacity: 1; }
+  .app-badge:active { transform: scale(.98); }
   .app-badge .small { display: block; font-size: 10px; opacity: 0.7; letter-spacing: 0.06em; }
   .app-badge .big { display: block; font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
   .app-badge svg { width: 22px; height: 22px; }
@@ -730,7 +733,7 @@
   <div class="wrap">
     <div class="grid">
       <div class="copy">
-        <span class="eyebrow">Coming soon · iOS</span>
+        <span class="eyebrow">Now on the App Store · iOS</span>
         <h1 style="margin-top:18px">
           Know your <em class="serif">skin</em>.<br />
           Love your skin.
@@ -746,14 +749,14 @@
         <p class="form-note">Be the first to know when we launch. No spam — just a single welcome from Glo.</p>
 
         <div class="badges">
-          <span class="app-badge" aria-label="Coming soon to the App Store">
+          <a class="app-badge" href="/get?c=site_hero" aria-label="Download GloSkin on the App Store">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.43 2.23-1.18 3.04-.79.84-2.07 1.5-3.13 1.42-.13-1.13.42-2.31 1.16-3.07.84-.86 2.27-1.51 3.15-1.39ZM20.5 17.34c-.55 1.27-.81 1.84-1.52 2.97-.99 1.57-2.39 3.53-4.12 3.55-1.54.02-1.93-1-4.02-.99-2.09.01-2.52 1.01-4.06.99C5.03 23.84 3.7 22.07 2.7 20.5 1.04 17.86.32 14.78 1.36 12.21c.74-1.83 2.43-3 4.21-3.03 1.51-.03 2.94 1.02 3.86 1.02.92 0 2.66-1.26 4.49-1.07.77.03 2.92.31 4.31 2.34-3.78 2.07-3.16 7.49 2.27 5.87Z"/></svg>
             <span>
-              <span class="small">Coming soon to the</span>
+              <span class="small">Download on the</span>
               <span class="big">App Store</span>
             </span>
-          </span>
-          <span class="meta">Launching summer 2026</span>
+          </a>
+          <span class="meta">Free to download</span>
         </div>
       </div>
 
@@ -978,7 +981,7 @@
         </div>
         <span class="eyebrow">The smart way to glow</span>
         <h2>Glow up. <em>The smart way.</em></h2>
-        <p class="lede" style="text-align:center">Be one of the first to meet Glo. Join the waitlist for early access, an invite to our private launch, and a free month of GloSkin Plus when we go live.</p>
+        <p class="lede" style="text-align:center">Meet Glo. Scan your face, get your Glo Score, and start a routine that actually fits your skin — free on the App Store.</p>
       </div>
 
       <div class="phones reveal" aria-label="GloSkin app screens">
@@ -1008,13 +1011,13 @@
           <button type="submit">Get early access</button>
         </form>
         <div class="badges" style="justify-content:center">
-          <span class="app-badge" aria-label="Coming soon to the App Store">
+          <a class="app-badge" href="/get?c=site_closing" aria-label="Download GloSkin on the App Store">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.43 2.23-1.18 3.04-.79.84-2.07 1.5-3.13 1.42-.13-1.13.42-2.31 1.16-3.07.84-.86 2.27-1.51 3.15-1.39ZM20.5 17.34c-.55 1.27-.81 1.84-1.52 2.97-.99 1.57-2.39 3.53-4.12 3.55-1.54.02-1.93-1-4.02-.99-2.09.01-2.52 1.01-4.06.99C5.03 23.84 3.7 22.07 2.7 20.5 1.04 17.86.32 14.78 1.36 12.21c.74-1.83 2.43-3 4.21-3.03 1.51-.03 2.94 1.02 3.86 1.02.92 0 2.66-1.26 4.49-1.07.77.03 2.92.31 4.31 2.34-3.78 2.07-3.16 7.49 2.27 5.87Z"/></svg>
             <span>
-              <span class="small">Coming soon to the</span>
+              <span class="small">Download on the</span>
               <span class="big">App Store</span>
             </span>
-          </span>
+          </a>
         </div>
       </div>
     </div>
@@ -1040,7 +1043,7 @@
         <ul>
           <li><a href="#features">Features</a></li>
           <li><a href="#waitlist">Waitlist</a></li>
-          <li><a href="#" aria-disabled="true">App Store</a></li>
+          <li><a href="/get?c=site_footer">App Store</a></li>
         </ul>
       </div>
 
